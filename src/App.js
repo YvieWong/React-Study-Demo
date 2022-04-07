@@ -1,10 +1,13 @@
 import React from 'react'
-import {BrowserRouter} from 'react-router-dom'
+import {Button} from 'antd'
+import './App.less'
 
-export default function App() {
+function App() {
 	return (
-		<BrowserRouter>
-			<div>App</div>
-		</BrowserRouter>
+		<div className="App">
+			<Button type="primary">Button</Button>
+		</div>
 	)
 }
+
+export default App
