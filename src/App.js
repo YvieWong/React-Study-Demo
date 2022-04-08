@@ -1,13 +1,13 @@
 import React from 'react'
-import {Button} from 'antd'
 import './App.less'
+import MyLayout from './pages/layout'
 
-function App() {
-	return (
-		<div className="App">
-			<Button type="primary">Button</Button>
-		</div>
-	)
+function App () {
+  return (
+    <div className="App">
+      <MyLayout></MyLayout>
+    </div>
+  )
 }
 
 export default App
