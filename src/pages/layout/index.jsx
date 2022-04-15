@@ -6,9 +6,14 @@ const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 import './index.scss'
+import { Link, Outlet } from 'react-router-dom';
+import router from '../../router';
 
 export default function MyLayout () {
   const [collapsed, setCollapsed] = React.useState(false)
+  const template = router[0].children
+  const menu = template.filter(item => { return item.isLayout })
+  console.log(menu);
 
   function onCollapse (collapsed) {
     console.log(collapsed);
@@ -33,7 +38,16 @@ export default function MyLayout () {
           >
             <div className="logo" />
             <Menu mode="inline" defaultSelectedKeys={['4']}>
-              <Menu.Item key="1" icon={<UserOutlined />}>
+              {
+                menu.map(item => {
+                  return <Menu.Item key={item.path}>
+                    <Link to={item.path}>
+                      {item.title}
+                    </Link>
+                  </Menu.Item>
+                })
+              }
+              {/* <Menu.Item key="1" icon={<UserOutlined />}>
                 nav 1
               </Menu.Item>
               <Menu.Item key="2" icon={<LaptopOutlined />}>
@@ -41,7 +55,7 @@ export default function MyLayout () {
               </Menu.Item>
               <Menu.Item key="3" icon={<NotificationOutlined />}>
                 nav 3
-              </Menu.Item>
+              </Menu.Item> */}
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
@@ -58,7 +72,7 @@ export default function MyLayout () {
                 minHeight: 280,
               }}
             >
-              Content
+              <Outlet />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           </Layout>
