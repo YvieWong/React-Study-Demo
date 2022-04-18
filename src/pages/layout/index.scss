@@ -23,7 +23,7 @@
   background: #fff;
 }
 .ant-layout-sider {
-  background: #fff;
+  background: #fff !important;
 }
 .ant-breadcrumb {
   text-align: left;
@@ -33,6 +33,6 @@
 }
 .ant-layout-sider-trigger {
   font-size: 30px;
-  color: #000;
-  background: #fff;
+  color: #000 !important;
+  background: #fff !important;
 }

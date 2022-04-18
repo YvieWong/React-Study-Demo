@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-
-// const { SubMenu } = Menu;
+const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-
 import './index.scss'
-import { Link, useRoutes } from 'react-router-dom';
+import { Link, useRoutes, Outlet } from 'react-router-dom';
 import { dynamicRoutingArray } from '../../router';
 
 
@@ -14,6 +12,42 @@ const MenuRout = () => {
   //根据路由表生成对应的路由规则
   const menuElement = useRoutes(dynamicRoutingArray)
   return menuElement
+}
+
+const MySubMenu = (item) => {
+  return <SubMenu title={item.title} key={item.path}>
+    {
+      item.children.map(one => {
+        if (one.children && one.children.length > 0) {
+          if (item.tempath) {
+            one.tempath = item.tempath + '/' + one.path
+          } else {
+            one.tempath = item.path + '/' + one.path
+          }
+          return MySubMenu(one)
+        } else {
+          let parentPath;
+          if (item.tempath) {
+            parentPath = item.tempath
+          } else {
+            parentPath = item.path
+          }
+          return MyMenuItem(one, parentPath)
+        }
+      })
+
+    }
+  </SubMenu>
+}
+
+const MyMenuItem = (item, parentPath) => {
+  console.log(parentPath);
+  return <Menu.Item key={item.path} >
+    <Link to={parentPath + '/' + item.path}>
+      {item.title}
+    </Link>
+  </Menu.Item>
+
 }
 
 export default function MyLayout () {
@@ -41,11 +75,14 @@ export default function MyLayout () {
             }}
             onCollapse={onCollapse}
           >
-            <div className="logo" />
-            <Menu mode="inline" defaultSelectedKeys={['4']}>
+            {/* <div className="logo" /> */}
+            <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={[]}>
               {
                 dynamicRoutingArray.map(item => {
-                  if (item.isLayout === true) {
+                  if (item.isLayout === true && item.children && item.children.length > 0) {
+                    console.log(item, 'aaa');
+                    return MySubMenu(item)
+                  } else {
                     return <Menu.Item key={item.path} >
                       <Link to={item.path}>
                         {item.title}
@@ -71,7 +108,7 @@ export default function MyLayout () {
               }}
             >
               <MenuRout />
-              {/* <Outlet /> */}
+              <Outlet />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           </Layout>

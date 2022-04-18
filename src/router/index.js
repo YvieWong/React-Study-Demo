@@ -13,8 +13,37 @@ export const dynamicRoutingArray = [
     path: 'news',
     title: '新闻',
     isLayout: true,
-    element: <News />,
-    children: []
+    // element: <MyLayout />,
+    children: [
+      {
+        path: 'message1',
+        title: '消息',
+        isLayout: true,
+        // element: <Message />,
+        children: [
+          {
+            path: 'message11',
+            title: '消息',
+            isLayout: true,
+            element: <News />,
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: 'newss',
+    title: '新闻',
+    isLayout: true,
+    // element: <MyLayout />,
+    children: [
+      {
+        path: 'message22',
+        title: '消息',
+        isLayout: true,
+        element: <Message />
+      }
+    ]
   },
   {
     path: 'message',

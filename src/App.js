@@ -6,13 +6,16 @@ import './App.less'
 const RoutingBasics = () => {
   //根据路由表生成对应的路由规则
   const element = useRoutes(AllRoutingArray)
-  console.log(element);
+  // console.log(element);
   return element
 }
 
 function App () {
   return (
-    <RoutingBasics />
+    <div className='App'>
+      <RoutingBasics />
+    </div>
+
   )
 }
 
