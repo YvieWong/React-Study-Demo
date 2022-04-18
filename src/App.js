@@ -1,17 +1,18 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, useRoutes } from 'react-router-dom'
-import routes from './router'
+import { useRoutes } from 'react-router-dom'
+import { AllRoutingArray } from './router'
 import './App.less'
 
-const AA = () => {
+const RoutingBasics = () => {
   //根据路由表生成对应的路由规则
-  const element = useRoutes(routes)
+  const element = useRoutes(AllRoutingArray)
+  console.log(element);
   return element
 }
 
 function App () {
   return (
-    <AA />
+    <RoutingBasics />
   )
 }
 

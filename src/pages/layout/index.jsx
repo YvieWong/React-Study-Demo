@@ -1,19 +1,24 @@
 import React, { Fragment } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+// import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 import './index.scss'
-import { Link, Outlet } from 'react-router-dom';
-import router from '../../router';
+import { Link, useRoutes } from 'react-router-dom';
+import { dynamicRoutingArray } from '../../router';
+
+
+const MenuRout = () => {
+  //根据路由表生成对应的路由规则
+  const menuElement = useRoutes(dynamicRoutingArray)
+  return menuElement
+}
 
 export default function MyLayout () {
   const [collapsed, setCollapsed] = React.useState(false)
-  const template = router[0].children
-  const menu = template.filter(item => { return item.isLayout })
-  console.log(menu);
+
 
   function onCollapse (collapsed) {
     console.log(collapsed);
@@ -39,23 +44,16 @@ export default function MyLayout () {
             <div className="logo" />
             <Menu mode="inline" defaultSelectedKeys={['4']}>
               {
-                menu.map(item => {
-                  return <Menu.Item key={item.path}>
-                    <Link to={item.path}>
-                      {item.title}
-                    </Link>
-                  </Menu.Item>
+                dynamicRoutingArray.map(item => {
+                  if (item.isLayout === true) {
+                    return <Menu.Item key={item.path} >
+                      <Link to={item.path}>
+                        {item.title}
+                      </Link>
+                    </Menu.Item>
+                  }
                 })
               }
-              {/* <Menu.Item key="1" icon={<UserOutlined />}>
-                nav 1
-              </Menu.Item>
-              <Menu.Item key="2" icon={<LaptopOutlined />}>
-                nav 2
-              </Menu.Item>
-              <Menu.Item key="3" icon={<NotificationOutlined />}>
-                nav 3
-              </Menu.Item> */}
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
@@ -72,7 +70,8 @@ export default function MyLayout () {
                 minHeight: 280,
               }}
             >
-              <Outlet />
+              <MenuRout />
+              {/* <Outlet /> */}
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
           </Layout>
