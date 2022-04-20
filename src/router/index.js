@@ -5,6 +5,7 @@ import Login from '../pages/login'
 import News from '../pages/news'
 import Message from '../pages/message'
 import NotFound from '../pages/404'
+import Dashboard from '../pages/dashboard'
 
 
 
@@ -13,12 +14,14 @@ export const dynamicRoutingArray = [
     path: 'news',
     title: '新闻',
     isLayout: true,
+    // element: <Navigate to="/MyLayout/news/message1/message11" />,
     // element: <MyLayout />,
     children: [
       {
         path: 'message1',
         title: '消息',
         isLayout: true,
+        // element: <Navigate to="/MyLayout/news/message1/message11" />,
         // element: <Message />,
         children: [
           {
@@ -50,7 +53,13 @@ export const dynamicRoutingArray = [
     title: '消息',
     isLayout: true,
     element: <Message />
-  }
+  },
+  {
+    path: 'dashboard',
+    title: '首页',
+    isLayout: false,
+    element: <Dashboard />
+  },
 ]
 export const staticRoutingArray = [
   {
@@ -63,7 +72,7 @@ export const staticRoutingArray = [
   },
   {
     path: '/',
-    element: <Navigate to="/MyLayout" />
+    element: <Navigate to="/MyLayout/dashboard" />
   },
   {
     path: '*',
